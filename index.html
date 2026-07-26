@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Shartnoma Generatori — Uzbekistan IT Contract Generator</title>
+<link rel="icon" href="assets/logo.svg">
+<link rel="stylesheet" href="assets/vendor/bootstrap.min.css">
+<link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ============================= SIDEBAR ============================= -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <img src="assets/logo.svg" alt="logo">
+      <div>
+        <div class="brand-name" data-i18n="app.title">IT Shartnoma Generatori</div>
+        <div class="brand-sub" data-i18n="app.subtitle">O'zbekiston uchun professional IT shartnomalar</div>
+      </div>
+    </div>
+    <div class="ikat-rule" style="margin: 0 20px; width: auto;"></div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-link active" data-view="dashboard"><i class="bi bi-grid-1x2-fill"></i><span data-i18n="nav.dashboard">Boshqaruv paneli</span></div>
+
+      <div class="nav-section-label">Hujjatlar</div>
+      <div class="nav-link" data-view="itService"><i class="bi bi-file-earmark-text-fill"></i><span data-i18n="nav.itService">IT xizmat shartnomasi</span></div>
+      <div class="nav-link" data-view="nda"><i class="bi bi-shield-lock-fill"></i><span data-i18n="nav.nda">NDA</span></div>
+      <div class="nav-link" data-view="sow"><i class="bi bi-diagram-3-fill"></i><span data-i18n="nav.sow">SOW</span></div>
+      <div class="nav-link" data-view="acceptance"><i class="bi bi-clipboard-check-fill"></i><span data-i18n="nav.acceptance">Qabul qilish dalolatnomasi</span></div>
+      <div class="nav-link" data-view="invoice"><i class="bi bi-receipt"></i><span data-i18n="nav.invoice">Hisob-faktura</span></div>
+      <div class="nav-link" data-view="maintenance"><i class="bi bi-tools"></i><span data-i18n="nav.maintenance">Texnik xizmat shartnomasi</span></div>
+
+      <div class="nav-section-label">Tizim</div>
+      <div class="nav-link" data-view="settings"><i class="bi bi-gear-fill"></i><span data-i18n="nav.settings">Sozlamalar</span></div>
+      <div class="nav-link" data-view="help"><i class="bi bi-question-circle-fill"></i><span data-i18n="nav.help">Yordam</span></div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="form-text-hint">v1.0.0 · MIT License</div>
+    </div>
+  </aside>
+
+  <!-- ============================= MAIN COLUMN ============================= -->
+  <div class="main-col">
+    <header class="topbar">
+      <button class="icon-btn d-lg-none" id="btnToggleSidebar"><i class="bi bi-list"></i></button>
+      <span class="contract-badge"><i class="bi bi-hash"></i> <span id="topbarContractNo">IT-2026-000001</span></span>
+      <div class="spacer"></div>
+
+      <select class="form-select form-select-sm" id="langSwitcher" style="width: auto;">
+        <option value="uz">O'zbekcha</option>
+        <option value="ru">Русский</option>
+        <option value="en">English</option>
+      </select>
+
+      <button class="icon-btn" id="btnSaveDraft" title="Save draft" data-i18n-title="topbar.save"><i class="bi bi-cloud-arrow-up"></i></button>
+      <button class="icon-btn" id="btnLoadDraft" title="Load draft" data-i18n-title="topbar.load"><i class="bi bi-cloud-arrow-down"></i></button>
+      <input type="file" id="draftFileInput" accept="application/json" style="display:none;">
+      <button class="icon-btn" id="btnToggleTheme" title="Dark mode"><i class="bi bi-moon-stars"></i></button>
+    </header>
+
+    <main class="content-area">
+
+      <!-- ============================= DASHBOARD ============================= -->
+      <section class="view-section active" id="view-dashboard">
+        <div class="hero-panel">
+          <h1 data-i18n="dashboard.title">Xush kelibsiz</h1>
+          <p data-i18n="dashboard.desc">Mijoz va loyiha ma'lumotlarini kiriting, so'ng kerakli hujjatni bir zumda Word (.docx) formatida yarating.</p>
+          <button class="btn btn-light fw-semibold btn-sm-icon" style="border-radius:10px;" data-view-jump="itService">
+            <i class="bi bi-plus-lg"></i> <span data-i18n="dashboard.newDoc">Yangi hujjat</span>
+          </button>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <div class="stat-card d-flex align-items-center gap-3">
+              <div class="stat-icon"><i class="bi bi-file-earmark-check"></i></div>
+              <div><div class="stat-value" id="statContracts">0</div><div class="stat-label" data-i18n="dashboard.stat.contracts">Yaratilgan hujjatlar</div></div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-card d-flex align-items-center gap-3">
+              <div class="stat-icon"><i class="bi bi-people"></i></div>
+              <div><div class="stat-value" id="statClients">0</div><div class="stat-label" data-i18n="dashboard.stat.clients">Mijozlar</div></div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-card d-flex align-items-center gap-3">
+              <div class="stat-icon"><i class="bi bi-cash-stack"></i></div>
+              <div><div class="stat-value" id="statValue" style="font-size:18px;">0</div><div class="stat-label" data-i18n="dashboard.stat.value">Umumiy shartnoma qiymati</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <h2 class="section-title"><span class="num">6</span> <span>Hujjat turlari</span></h2>
+          <div class="doc-quick-grid">
+            <div class="doc-quick-card" data-view-jump="itService"><i class="bi bi-file-earmark-text-fill"></i><div class="name" data-i18n="nav.itService">IT xizmat shartnomasi</div><div class="pages">30–40 <span data-i18n="pages.estimate">sahifa</span></div></div>
+            <div class="doc-quick-card" data-view-jump="nda"><i class="bi bi-shield-lock-fill"></i><div class="name" data-i18n="nav.nda">NDA</div><div class="pages">5–8 <span data-i18n="pages.estimate">sahifa</span></div></div>
+            <div class="doc-quick-card" data-view-jump="sow"><i class="bi bi-diagram-3-fill"></i><div class="name" data-i18n="nav.sow">SOW</div><div class="pages">10–20 <span data-i18n="pages.estimate">sahifa</span></div></div>
+            <div class="doc-quick-card" data-view-jump="acceptance"><i class="bi bi-clipboard-check-fill"></i><div class="name" data-i18n="nav.acceptance">Qabul qilish dalolatnomasi</div><div class="pages">5 <span data-i18n="pages.estimate">sahifa</span></div></div>
+            <div class="doc-quick-card" data-view-jump="invoice"><i class="bi bi-receipt"></i><div class="name" data-i18n="nav.invoice">Hisob-faktura</div><div class="pages">1–2 <span data-i18n="pages.estimate">sahifa</span></div></div>
+            <div class="doc-quick-card" data-view-jump="maintenance"><i class="bi bi-tools"></i><div class="name" data-i18n="nav.maintenance">Texnik xizmat shartnomasi</div><div class="pages">10 <span data-i18n="pages.estimate">sahifa</span></div></div>
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <h2 class="section-title"><i class="bi bi-clock-history"></i> <span data-i18n="dashboard.recent">So'nggi shartnomalar</span></h2>
+          <div id="recentList"><div class="form-text-hint" data-i18n="dashboard.none">Hozircha hech qanday shartnoma yaratilmagan.</div></div>
+        </div>
+      </section>
+
+      <!-- ============================= SHARED FORM SECTIONS TEMPLATE (injected per doc) ============================= -->
+      <!-- Each document view below shares the Company/Client/Project/Payment blocks via data-shared="true" wrappers,
+           populated identically from the same state object by script.js -->
+
+      <template id="tpl-company-section">
+        <div class="card-panel">
+          <h2 class="section-title"><span class="num">1</span> <span data-i18n="section.company">Kompaniya ma'lumotlari</span></h2>
+          <div class="row g-3">
+            <div class="col-md-6"><label class="form-label" data-i18n="field.companyName">Kompaniya nomi</label><input class="form-control" data-field="company.name"></div>
+            <div class="col-md-6"><label class="form-label" data-i18n="field.director">Direktor F.I.Sh.</label><input class="form-control" data-field="company.director"></div>
+            <div class="col-md-6"><label class="form-label" data-i18n="field.position">Lavozimi</label><input class="form-control" data-field="company.position"></div>
+            <div class="col-md-6"><label class="form-label" data-i18n="field.tin">STIR</label><input class="form-control" data-field="company.tin"></div>
+            <div class="col-md-4"><label class="form-label" data-i18n="field.bank">Bank nomi</label><input class="form-control" data-field="company.bank"></div>
+            <div class="col-md-4"><label class="form-label" data-i18n="field.account">Hisob raqami</label><input class="form-control" data-field="company.account"></div>
+            <div class="col-md-4"><label class="form-label" data-i18n="field.mfo">MFO</label><input class="form-control" data-field="company.mfo"></div>
+            <div class="col-md-8"><label class="form-label" data-i18n="field.address">Manzil</label><input class="form-control" data-field="company.address"></div>
+            <div class="col-md-4"><label class="form-label" data-i18n="field.phone">Telefon</label><input class="form-control" data-field="company.phone"></div>
+            <div class="col-md-4"><label class="form-label" data-i18n="field.email">Elektron pochta</label><input class="form-control" data-field="company.email"></div>
+            <div class="col-md-4"><label class="form-label" data-i18n="field.website">Veb-sayt</label><input class="form-control" data-field="company.website"></div>
+          </div>
+          <div class="row g-3 mt-1">
+            <div class="col-md-4">
+              <label class="form-label" data-i18n="field.logo">Kompaniya logotipi</label>
+              <label class="upload-tile w-100">
+                <input type="file" accept="image/*" data-imagefield="company.logo" hidden>
+                <img class="preview" data-preview="company.logo" src="assets/logo.svg">
+                <span class="upload-text">PNG / JPG</span>
+              </label>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" data-i18n="field.stamp">Muhr rasmi</label>
+              <label class="upload-tile w-100">
+                <input type="file" accept="image/*" data-imagefield="company.stamp" hidden>
+                <img class="preview" data-preview="company.stamp" src="assets/logo.svg" style="opacity:.3;">
+                <span class="upload-text">PNG</span>
+              </label>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" data-i18n="field.signature">Imzo rasmi</label>
+              <label class="upload-tile w-100">
+                <input type="file" accept="image/*" data-imagefield="company.signature" hidden>
+                <img class="preview" data-preview="company.signature" src="assets/logo.svg" style="opacity:.3;">
+                <span class="upload-text">PNG</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template id="tpl-client-section">
+        <div class="card-panel">
+          <h2 class="section-title"><span class="num">2</span> <span data-i18n="section.client">Mijoz ma'lumotlari</span></h2>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label" data-i18n="field.clientType">Mijoz turi</label>
+              <select class="form-select" data-field="client.type">
+                <option value="company" data-i18n="field.clientType.company">Yuridik shaxs</option>
+                <option value="individual" data-i18n="field.clientType.individual">Jismoniy shaxs</option>
+              </select>
+            </div>
+            <div class="col-md-8"><label class="form-label" data-i18n="field.companyName">Kompaniya nomi</label><input class="form-control" data-field="client.name"></div>
+            <div class="col-md-6"><label class="form-label" data-i18n="field.clientDirector">Rahbar / Vakil F.I.Sh.</label><input class="form-control" data-field="client.director"></div>
+            <div class="col-md-6"><label class="form-label" data-i18n="field.passportPinfl">Pasport / PINFL</label><input class="form-control" data-field="client.passport"></div>
+            <div class="col-md-6"><label class="form-label" data-i18n="field.clientTin">STIR</label><input class="form-control" data-field="client.tin"></div>
+            <div class="col-md-6"><label class="form-label" data-i18n="field.phone">Telefon</label><input class="form-control" data-field="client.phone"></div>
+            <div class="col-md-6"><label class="form-label" data-i18n="field.email">Elektron pochta</label><input class="form-control" data-field="client.email"></div>
+            <div class="col-md-6"><label class="form-label" data-i18n="field.address">Manzil</label><input class="form-control" data-field="client.address"></div>
+          </div>
+        </div>
+      </template>
+
+      <template id="tpl-project-section">
+        <div class="card-panel">
+          <h2 class="section-title"><span class="num">3</span> <span data-i18n="section.project">Loyiha ma'lumotlari</span></h2>
+          <div class="row g-3">
+            <div class="col-md-6"><label class="form-label" data-i18n="field.projectName">Loyiha nomi</label><input class="form-control" data-field="project.name"></div>
+            <div class="col-md-6">
+              <label class="form-label" data-i18n="field.projectType">Loyiha turi</label>
+              <select class="form-select" data-field="project.type">
+                <option>Website</option><option>CRM</option><option>ERP</option><option>Mobile App</option>
+                <option>Telegram Bot</option><option>AI System</option><option>Desktop Software</option>
+                <option>API Development</option><option>Support</option><option>Other</option>
+              </select>
+            </div>
+            <div class="col-12"><label class="form-label" data-i18n="field.projectDescription">Loyiha tavsifi</label><textarea class="form-control" data-field="project.description"></textarea></div>
+            <div class="col-12"><label class="form-label" data-i18n="field.technologies">Texnologiyalar</label><input class="form-control" data-field="project.technologies" placeholder="React, Node.js, PostgreSQL..."></div>
+            <div class="col-md-3"><label class="form-label" data-i18n="field.startDate">Boshlanish sanasi</label><input type="date" class="form-control" data-field="project.startDate"></div>
+            <div class="col-md-3"><label class="form-label" data-i18n="field.endDate">Tugash sanasi</label><input type="date" class="form-control" data-field="project.endDate"></div>
+            <div class="col-md-3"><label class="form-label" data-i18n="field.warranty">Kafolat muddati</label><input class="form-control" data-field="project.warranty" placeholder="3 months"></div>
+            <div class="col-md-3"><label class="form-label" data-i18n="field.support">Qo'llab-quvvatlash muddati</label><input class="form-control" data-field="project.support" placeholder="12 months"></div>
+            <div class="col-md-6"><label class="form-label" data-i18n="field.milestones">Bosqichlar</label><textarea class="form-control" data-field="project.milestones" placeholder="Discovery & UX&#10;Backend MVP&#10;Frontend integration&#10;QA & launch"></textarea></div>
+            <div class="col-md-6"><label class="form-label" data-i18n="field.estimatedHours">Taxminiy soatlar</label><input type="number" class="form-control" data-field="project.estimatedHours"></div>
+          </div>
+        </div>
+      </template>
+
+      <template id="tpl-payment-section">
+        <div class="card-panel">
+          <h2 class="section-title"><span class="num">4</span> <span data-i18n="section.payment">To'lov shartlari</span></h2>
+          <div class="row g-3">
+            <div class="col-md-3">
+              <label class="form-label" data-i18n="field.currency">Valyuta</label>
+              <select class="form-select" data-field="payment.currency"><option>UZS</option><option>USD</option><option>EUR</option></select>
+            </div>
+            <div class="col-md-3"><label class="form-label" data-i18n="field.price">Shartnoma narxi</label><input type="number" class="form-control" data-field="payment.price"></div>
+            <div class="col-md-3"><label class="form-label" data-i18n="field.advance">Avans to'lovi</label><input type="number" class="form-control" data-field="payment.advance"></div>
+            <div class="col-md-3"><label class="form-label" data-i18n="field.remaining">Qolgan to'lov</label><input type="number" class="form-control" data-field="payment.remaining"></div>
+            <div class="col-md-4">
+              <label class="form-label" data-i18n="field.paymentMethod">To'lov usuli</label>
+              <input class="form-control" data-field="payment.method" placeholder="Bank transfer">
+            </div>
+            <div class="col-md-4"><label class="form-label" data-i18n="field.penaltyPercent">Kechikish jarimasi (%)</label><input type="number" step="0.1" class="form-control" data-field="payment.penaltyPercent"></div>
+            <div class="col-md-4 d-flex align-items-end">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" data-checkfield="payment.vatIncluded" id="vatCheck">
+                <label class="form-check-label" for="vatCheck" data-i18n="field.vat">QQS qo'shilgan</label>
+              </div>
+            </div>
+            <div class="col-12"><label class="form-label" data-i18n="field.delayPenaltyNote">Jarima haqida qo'shimcha izoh</label><textarea class="form-control" data-field="payment.delayPenaltyNote"></textarea></div>
+          </div>
+        </div>
+      </template>
+
+      <template id="tpl-ip-section">
+        <div class="card-panel">
+          <h2 class="section-title"><span class="num">5</span> <span data-i18n="section.ip">Intellektual mulk huquqlari</span></h2>
+          <p class="section-sub" data-i18n="hint.optionalLegal">Bu bo'lim ixtiyoriy. Bo'sh qoldirsangiz, har bir band uchun tayyor professional yuridik matn avtomatik qo'llaniladi.</p>
+          <div class="row g-3">
+            <div class="col-12"><label class="form-label" data-i18n="field.sourceCodeOwnership">Manba kod egaligi</label><textarea class="form-control" data-field="ip.sourceCodeOwnership" data-i18n-placeholder="hint.leaveBlank"></textarea></div>
+            <div class="col-12"><label class="form-label" data-i18n="field.repositoryOwnership">Repozitoriy egaligi</label><textarea class="form-control" data-field="ip.repositoryOwnership" data-i18n-placeholder="hint.leaveBlank"></textarea></div>
+            <div class="col-12"><label class="form-label" data-i18n="field.copyright">Mualliflik huquqi</label><textarea class="form-control" data-field="ip.copyright" data-i18n-placeholder="hint.leaveBlank"></textarea></div>
+            <div class="col-md-6"><label class="form-label" data-i18n="field.license">Litsenziya turi</label><input class="form-control" data-field="ip.license" data-i18n-placeholder="hint.leaveBlank"></div>
+            <div class="col-md-6"><label class="form-label" data-i18n="field.openSourceComponents">Ochiq manbali komponentlar</label><input class="form-control" data-field="ip.openSourceComponents"></div>
+            <div class="col-12"><label class="form-label" data-i18n="field.commercialRights">Tijorat huquqlari</label><textarea class="form-control" data-field="ip.commercialRights" data-i18n-placeholder="hint.leaveBlank"></textarea></div>
+          </div>
+        </div>
+      </template>
+
+      <template id="tpl-confidentiality-section">
+        <div class="card-panel">
+          <h2 class="section-title"><span class="num">6</span> <span data-i18n="section.confidentiality">Maxfiylik</span></h2>
+          <p class="section-sub" data-i18n="hint.optionalLegal">Bu bo'lim ixtiyoriy. Bo'sh qoldirsangiz, har bir band uchun tayyor professional yuridik matn avtomatik qo'llaniladi.</p>
+          <div class="row g-3">
+            <div class="col-md-4"><label class="form-label" data-i18n="field.ndaDuration">NDA amal qilish muddati</label><input class="form-control" data-field="confidentiality.ndaDuration" placeholder="3 years"></div>
+            <div class="col-12"><label class="form-label" data-i18n="field.nondisclosure">Oshkor qilmaslik shartlari</label><textarea class="form-control" data-field="confidentiality.nondisclosure" data-i18n-placeholder="hint.leaveBlank"></textarea></div>
+            <div class="col-12"><label class="form-label" data-i18n="field.dataProtection">Ma'lumotlarni himoya qilish</label><textarea class="form-control" data-field="confidentiality.dataProtection" data-i18n-placeholder="hint.leaveBlank"></textarea></div>
+            <div class="col-12"><label class="form-label" data-i18n="field.privacy">Maxfiylik siyosati</label><textarea class="form-control" data-field="confidentiality.privacy" data-i18n-placeholder="hint.leaveBlank"></textarea></div>
+          </div>
+        </div>
+      </template>
+
+      <template id="tpl-acceptance-section">
+        <div class="card-panel">
+          <h2 class="section-title"><span class="num">7</span> <span data-i18n="section.acceptance">Qabul qilish shartlari</span></h2>
+          <div class="row g-3">
+            <div class="col-md-4"><label class="form-label" data-i18n="field.acceptancePeriod">Qabul qilish muddati (kun)</label><input type="number" class="form-control" data-field="acceptance.acceptancePeriod"></div>
+            <div class="col-md-4"><label class="form-label" data-i18n="field.bugCritical">Kritik xatolar (kun)</label><input type="number" class="form-control" data-field="acceptance.bugCritical"></div>
+            <div class="col-md-4"><label class="form-label" data-i18n="field.bugMajor">Jiddiy xatolar (kun)</label><input type="number" class="form-control" data-field="acceptance.bugMajor"></div>
+            <div class="col-md-4"><label class="form-label" data-i18n="field.bugMinor">Kichik xatolar (kun)</label><input type="number" class="form-control" data-field="acceptance.bugMinor"></div>
+            <div class="col-md-4"><label class="form-label" data-i18n="field.bugEnhancement">Yaxshilash so'rovlari (kun)</label><input type="number" class="form-control" data-field="acceptance.bugEnhancement"></div>
+          </div>
+        </div>
+      </template>
+
+      <template id="tpl-generate-bar">
+        <div class="d-flex gap-2 flex-wrap justify-content-end mb-5">
+          <button class="btn btn-outline-soft btn-sm-icon" data-action="reset"><i class="bi bi-eraser"></i> <span data-i18n="btn.reset">Tozalash</span></button>
+          <button class="btn btn-outline-soft btn-sm-icon" data-action="preview"><i class="bi bi-eye"></i> <span data-i18n="btn.preview">Ko'rib chiqish</span></button>
+          <button class="btn btn-brand btn-sm-icon" data-action="generate"><i class="bi bi-file-earmark-word"></i> <span data-i18n="btn.generate">Word hujjatini yaratish</span></button>
+        </div>
+      </template>
+
+      <!-- ============================= IT SERVICE AGREEMENT ============================= -->
+      <section class="view-section" id="view-itService" data-doctype="itService">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h1 style="font-size:20px;font-weight:700;" data-i18n="nav.itService">IT xizmat shartnomasi</h1>
+          <span class="badge-soft">30–40 <span data-i18n="pages.estimate">sahifa</span></span>
+        </div>
+        <div class="section-slots"
+          data-sections="company,client,project,payment,ip,confidentiality,acceptance,generate"></div>
+      </section>
+
+      <!-- ============================= NDA ============================= -->
+      <section class="view-section" id="view-nda" data-doctype="nda">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h1 style="font-size:20px;font-weight:700;" data-i18n="nav.nda">Maxfiylik shartnomasi (NDA)</h1>
+          <span class="badge-soft">5–8 <span data-i18n="pages.estimate">sahifa</span></span>
+        </div>
+        <div class="section-slots" data-sections="company,client,confidentiality,generate"></div>
+      </section>
+
+      <!-- ============================= SOW ============================= -->
+      <section class="view-section" id="view-sow" data-doctype="sow">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h1 style="font-size:20px;font-weight:700;" data-i18n="nav.sow">Ish doirasi (SOW)</h1>
+          <span class="badge-soft">10–20 <span data-i18n="pages.estimate">sahifa</span></span>
+        </div>
+        <div class="section-slots" data-sections="company,client,project,generate"></div>
+      </section>
+
+      <!-- ============================= ACCEPTANCE ACT ============================= -->
+      <section class="view-section" id="view-acceptance" data-doctype="acceptance">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h1 style="font-size:20px;font-weight:700;" data-i18n="nav.acceptance">Qabul qilish dalolatnomasi</h1>
+          <span class="badge-soft">5 <span data-i18n="pages.estimate">sahifa</span></span>
+        </div>
+        <div class="section-slots" data-sections="company,client,project,acceptance,generate"></div>
+      </section>
+
+      <!-- ============================= INVOICE ============================= -->
+      <section class="view-section" id="view-invoice" data-doctype="invoice">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h1 style="font-size:20px;font-weight:700;" data-i18n="nav.invoice">Hisob-faktura</h1>
+          <span class="badge-soft">1–2 <span data-i18n="pages.estimate">sahifa</span></span>
+        </div>
+        <div class="section-slots" data-sections="company,client"></div>
+        <div class="card-panel">
+          <h2 class="section-title"><span class="num">3</span> <span data-i18n="section.invoiceItems">Hisob-faktura qatorlari</span></h2>
+          <div class="table-responsive">
+            <table class="table table-editable mb-2">
+              <thead><tr><th style="width:45%">Description</th><th style="width:15%">Qty</th><th style="width:20%">Unit price</th><th style="width:15%">Amount</th><th></th></tr></thead>
+              <tbody id="invoiceItemsBody"></tbody>
+            </table>
+          </div>
+          <button class="btn btn-outline-soft btn-sm btn-sm-icon" id="btnAddInvoiceRow"><i class="bi bi-plus-lg"></i> <span data-i18n="btn.addRow">Qator qo'shish</span></button>
+          <div class="row g-3 mt-2">
+            <div class="col-md-4"><label class="form-label" data-i18n="field.invoiceDueDate">To'lov muddati</label><input type="date" class="form-control" data-field="payment.invoiceDueDate"></div>
+          </div>
+        </div>
+        <div id="invoiceGenerateBar"></div>
+      </section>
+
+      <!-- ============================= MAINTENANCE ============================= -->
+      <section class="view-section" id="view-maintenance" data-doctype="maintenance">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h1 style="font-size:20px;font-weight:700;" data-i18n="nav.maintenance">Texnik xizmat shartnomasi</h1>
+          <span class="badge-soft">10 <span data-i18n="pages.estimate">sahifa</span></span>
+        </div>
+        <div class="section-slots" data-sections="company,client,project"></div>
+        <div class="card-panel">
+          <h2 class="section-title"><span class="num">4</span> <span data-i18n="section.maintenance">Texnik xizmat ko'rsatish shartlari</span></h2>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label" data-i18n="field.maintenanceTier">Xizmat darajasi (SLA)</label>
+              <select class="form-select" data-field="maintenance.tier"><option>Standard</option><option>Priority</option><option>Enterprise</option></select>
+            </div>
+            <div class="col-md-4"><label class="form-label" data-i18n="field.responseTime">Javob berish vaqti</label><input class="form-control" data-field="maintenance.responseTime" placeholder="4 business hours"></div>
+            <div class="col-md-4"><label class="form-label" data-i18n="field.resolutionTime">Hal qilish vaqti</label><input class="form-control" data-field="maintenance.resolutionTime" placeholder="2 business days"></div>
+            <div class="col-md-4"><label class="form-label" data-i18n="field.monthlyFee">Oylik to'lov</label><input type="number" class="form-control" data-field="maintenance.monthlyFee"></div>
+          </div>
+        </div>
+        <div class="section-slots" data-sections="acceptance,generate"></div>
+      </section>
+
+      <!-- ============================= SETTINGS ============================= -->
+      <section class="view-section" id="view-settings">
+        <h1 style="font-size:20px;font-weight:700;margin-bottom:16px;" data-i18n="settings.title">Sozlamalar</h1>
+        <div class="card-panel">
+          <h2 class="section-title"><i class="bi bi-building"></i> <span data-i18n="settings.profile">Kompaniya profili</span></h2>
+          <p class="section-sub">Bu yerda kiritilgan ma'lumotlar barcha hujjatlarda avtomatik ishlatiladi.</p>
+          <div class="section-slots" data-sections="company"></div>
+          <button class="btn btn-brand btn-sm-icon" id="btnSaveProfile"><i class="bi bi-check-lg"></i> <span data-i18n="settings.saveProfile">Profilni saqlash</span></button>
+        </div>
+        <div class="card-panel">
+          <h2 class="section-title"><i class="bi bi-sliders"></i> <span data-i18n="settings.defaults">Standart qiymatlar</span></h2>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label" data-i18n="settings.defaultCurrency">Standart valyuta</label>
+              <select class="form-select" id="defaultCurrency"><option>UZS</option><option>USD</option><option>EUR</option></select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" data-i18n="settings.defaultVat">Standart QQS foizi</label>
+              <input type="number" class="form-control" id="defaultVat" value="12">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" data-i18n="settings.language">Til</label>
+              <select class="form-select" id="settingsLangSwitcher">
+                <option value="uz">O'zbekcha</option><option value="ru">Русский</option><option value="en">English</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="card-panel">
+          <h2 class="section-title"><i class="bi bi-palette"></i> <span data-i18n="settings.appearance">Ko'rinish</span></h2>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+            <label class="form-check-label" for="darkModeSwitch" data-i18n="topbar.darkMode">Tungi rejim</label>
+          </div>
+        </div>
+        <div class="card-panel">
+          <h2 class="section-title"><i class="bi bi-arrow-left-right"></i> Import / Export</h2>
+          <div class="d-flex gap-2 flex-wrap">
+            <button class="btn btn-outline-soft btn-sm-icon" id="btnExportJson"><i class="bi bi-download"></i> <span data-i18n="btn.exportJson">JSON eksport</span></button>
+            <button class="btn btn-outline-soft btn-sm-icon" id="btnImportJson"><i class="bi bi-upload"></i> <span data-i18n="btn.importJson">JSON import</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================= HELP ============================= -->
+      <section class="view-section" id="view-help">
+        <h1 style="font-size:20px;font-weight:700;margin-bottom:16px;" data-i18n="help.title">Yordam</h1>
+        <div class="card-panel">
+          <p data-i18n="help.intro">Ushbu ilova O'zbekiston qonunchiligi va biznes amaliyotiga mos IT shartnoma shablonlarini yaratadi.</p>
+        </div>
+        <div class="card-panel" style="border-left:3px solid var(--warning);">
+          <h2 class="section-title"><i class="bi bi-exclamation-triangle-fill" style="color:var(--warning);"></i> <span data-i18n="help.disclaimerTitle">Muhim eslatma</span></h2>
+          <p data-i18n="help.disclaimer">Ushbu ilova yuridik maslahat bermaydi.</p>
+        </div>
+        <div class="card-panel">
+          <h2 class="section-title"><i class="bi bi-list-ol"></i> <span data-i18n="help.steps">Qanday ishlatiladi</span></h2>
+          <p data-i18n="help.step1">1. ...</p>
+          <p data-i18n="help.step2">2. ...</p>
+          <p data-i18n="help.step3">3. ...</p>
+          <p data-i18n="help.step4">4. ...</p>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="text-center py-3" style="color:var(--muted); font-size:12px;">
+      © <span id="footerYear">2026</span> — <span data-i18n="footer.rights">Barcha huquqlar himoyalangan.</span>
+    </footer>
+  </div>
+</div>
+
+<!-- ============================= PREVIEW MODAL ============================= -->
+<div class="modal fade" id="previewModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content" style="border-radius:16px; border:none;">
+      <div class="modal-header">
+        <h5 class="modal-title" data-i18n="btn.preview">Ko'rib chiqish</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" style="background:var(--surface-soft);">
+        <div class="preview-doc" id="previewContent"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-soft" data-bs-dismiss="modal" data-i18n="modal.cancel">Yopish</button>
+        <button class="btn btn-brand btn-sm-icon" id="btnGenerateFromPreview"><i class="bi bi-file-earmark-word"></i> <span data-i18n="btn.generate">Word hujjatini yaratish</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= CONFIRM CLEAR MODAL ============================= -->
+<div class="modal fade" id="confirmClearModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content" style="border-radius:16px; border:none;">
+      <div class="modal-header">
+        <h5 class="modal-title" data-i18n="modal.confirmClear.title">Formani tozalashni tasdiqlaysizmi?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body"><p data-i18n="modal.confirmClear.body">Ushbu bo'limdagi barcha kiritilgan ma'lumotlar o'chiriladi.</p></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-soft" data-bs-dismiss="modal" data-i18n="modal.cancel">Bekor qilish</button>
+        <button class="btn btn-brand" id="btnConfirmClear" data-i18n="modal.confirm">Ha, tozalash</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= LOADING OVERLAY ============================= -->
+<div class="gen-overlay" id="genOverlay" style="display:none;">
+  <div class="gen-card">
+    <div class="gen-spinner"></div>
+    <div class="fw-semibold" data-i18n="toast.generating">Hujjat tayyorlanmoqda...</div>
+  </div>
+</div>
+
+<!-- ============================= TOASTS ============================= -->
+<div class="toast-stack" id="toastStack"></div>
+
+<!-- ============================= SCRIPTS ============================= -->
+<script src="assets/vendor/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/docx.iife.js"></script>
+<script src="assets/vendor/FileSaver.min.js"></script>
+<script src="assets/vendor/qrcode.js"></script>
+<script src="assets/i18n.js"></script>
+<script src="word-generator.js"></script>
+<script src="contracts/it-service-agreement.js"></script>
+<script src="contracts/nda.js"></script>
+<script src="contracts/sow.js"></script>
+<script src="contracts/acceptance.js"></script>
+<script src="contracts/invoice.js"></script>
+<script src="contracts/maintenance.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
