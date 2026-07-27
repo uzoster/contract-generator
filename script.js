@@ -449,6 +449,24 @@
         const html = buildElectronicCopyHtml(docType, lang);
         const htmlFilename = `${state.meta.contractNumber}-${slug}.html`;
         setTimeout(() => WordGen.saveHtml(html, htmlFilename), 450);
+
+        // Open it in a new tab immediately so the user can see the electronic
+        // copy right away, even before (or without) hosting it anywhere.
+        const previewBlob = new Blob([html], { type: "text/html;charset=utf-8" });
+        const previewUrl = URL.createObjectURL(previewBlob);
+        setTimeout(() => {
+          window.open(previewUrl, "_blank");
+          setTimeout(() => URL.revokeObjectURL(previewUrl), 60000);
+        }, 500);
+
+        const base = (state.company.verifyBaseUrl || "").trim();
+        setTimeout(() => {
+          if (base) {
+            toast(`${t("toast.electronicCopyHosted")}: ${base.replace(/\/+$/, "")}/${htmlFilename}`, "info");
+          } else {
+            toast(t("toast.electronicCopyNoUrl"), "info");
+          }
+        }, 900);
       } catch (e) {
         console.warn("Electronic copy generation failed", e);
       }
