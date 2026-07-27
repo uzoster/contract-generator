@@ -20,6 +20,7 @@ const ContractInvoice = (() => {
           project: "Project", description: "Description", qty: "Qty", unitPrice: "Unit price", amount: "Amount",
           subtotal: "Subtotal", vat: "VAT", total: "Total due", notes: "Notes", paymentDetails: "Payment details",
           note: "Please make payment by bank transfer to the account specified below, referencing the invoice number.",
+          esfNote: "This document is a commercial payment request and does not replace the official electronic tax invoice (E-invoice/EF) that VAT-registered persons must issue through the state tax authority's electronic invoicing system in accordance with the Tax Code of the Republic of Uzbekistan.",
         },
       },
       ru: {
@@ -28,6 +29,7 @@ const ContractInvoice = (() => {
           project: "Проект", description: "Описание", qty: "Кол-во", unitPrice: "Цена за ед.", amount: "Сумма",
           subtotal: "Промежуточный итог", vat: "НДС", total: "Итого к оплате", notes: "Примечания", paymentDetails: "Платёжные реквизиты",
           note: "Просьба произвести оплату банковским переводом на указанный ниже счёт с указанием номера счёта в назначении платежа.",
+          esfNote: "Настоящий документ является коммерческим требованием об оплате и не заменяет официальный электронный счёт-фактуру (ЭСФ), который плательщики НДС обязаны оформлять через систему электронных счетов-фактур налоговых органов в соответствии с Налоговым кодексом Республики Узбекистан.",
         },
       },
       uz: {
@@ -36,6 +38,7 @@ const ContractInvoice = (() => {
           project: "Loyiha", description: "Tavsif", qty: "Soni", unitPrice: "Birlik narxi", amount: "Summa",
           subtotal: "Oraliq jami", vat: "QQS", total: "To'lanishi lozim jami", notes: "Izohlar", paymentDetails: "To'lov rekvizitlari",
           note: "Iltimos, to'lovni quyida ko'rsatilgan hisob raqamiga, to'lov maqsadida hisob-faktura raqamini ko'rsatgan holda, bank o'tkazmasi orqali amalga oshiring.",
+          esfNote: "Ushbu hujjat tijorat to'lov talabnomasi hisoblanadi va QQS to'lovchilari Soliq kodeksiga muvofiq davlat soliq organining elektron hisob-fakturalar tizimi orqali rasmiylashtirishi shart bo'lgan rasmiy elektron hisob-fakturani (ЭСФ) almashtirmaydi.",
         },
       },
     };
@@ -95,6 +98,8 @@ const ContractInvoice = (() => {
     ]));
     body.push(W.spacer(200));
     body.push(W.para(L.note, { indentFirstLine: false }));
+    body.push(W.spacer(150));
+    body.push(W.para(L.esfNote, { indentFirstLine: false, italic: true, size: 20 }));
     body.push(W.spacer(400));
 
     if (co.stamp) {
