@@ -27,10 +27,22 @@ the Republic of Uzbekistan.
   [FileSaver.js](https://www.npmjs.com/package/file-saver). All libraries are
   bundled locally under `assets/vendor/`, so the app works fully offline the
   moment you open `index.html` — no CDN, no install step, no `npm install`.
-- **Professional Word formatting**: cover page, verification QR code, automatic
-  table of contents, running headers/footers with page numbers, Times New Roman
-  14pt body text at 1.5 line spacing, formatted tables, and a two-column
-  signature block with logo, stamp, and signature image support.
+- **Professional Word formatting**: cover page with brand accent rule, a boxed
+  verification QR code, automatic table of contents, running headers/footers
+  with page numbers, Times New Roman 14pt body text at 1.5 line spacing,
+  formatted tables, and a two-column signature block styled like a standard
+  Uzbek contract (signature line with "(imzo)" caption, dashed **M.O'.** seal
+  placeholder when no stamp image is uploaded, and a date line for each
+  party).
+- **QR code → electronic copy**: set an "Electronic copy link" once in
+  Settings (e.g. your own website or a Google Drive folder you control) and
+  every generated document automatically downloads **two files**: the signed
+  `.docx` and a matching, nicely branded, self-contained `.html` "electronic
+  copy" — named to match exactly what the cover-page QR code links to
+  (`{contractNumber}-{doctype}.html`). Upload that HTML file to the address
+  you configured, and scanning the QR code on a printed/signed copy opens the
+  real electronic version. If you leave the link blank, the QR code simply
+  encodes a verification code instead (no hosting required).
 - **Company profile & defaults**: fill in your company details once under
   Settings; they auto-fill into every document.
 - **Auto-numbered contracts** (`IT-2026-000001`, incrementing automatically).

@@ -150,8 +150,8 @@ const ContractMaintenance = (() => {
       passportLabel: t("field.passportPinfl"),
       phoneLabel: t("field.phone"),
     }));
-    return W.buildDocument({ state, lang, t, docTitle: c.title, docSubtitle: c.subtitle, bodyChildren: body, includeTOC: true, tocTitle: c.toc });
+    return W.buildDocument({ state, lang, t, docTitle: c.title, docSubtitle: c.subtitle, bodyChildren: body, includeTOC: true, tocTitle: c.toc, docSlug: "maintenance" });
   }
 
-  return { generate };
+  return { generate, content };
 })();

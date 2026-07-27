@@ -75,7 +75,6 @@ const ContractITService = (() => {
             `The remaining balance of ${money(state, pay.remaining)} shall be paid in accordance with the milestone schedule set out in Annex 1, or otherwise upon final acceptance of the Deliverables.`,
             `Payment shall be made by ${pay.method || "bank transfer"} to the Contractor's settlement account specified in the signature block of this Agreement.`,
             "All amounts are exclusive of bank transfer fees, which shall be borne by the paying Party unless otherwise agreed.",
-            "Where payment is made in a foreign currency or across borders, the Parties shall comply with the currency and banking legislation of the Republic of Uzbekistan applicable at the time of payment, including any requirements relating to settlement through licensed banks.",
           ]],
           ["Taxes", [
             "Each Party shall be responsible for its own tax obligations arising from this Agreement in accordance with the Tax Code of the Republic of Uzbekistan and other applicable legislation.",
@@ -90,8 +89,7 @@ const ContractITService = (() => {
             `"Confidential Information" means any non-public technical, commercial, financial, or organizational information disclosed by either Party in connection with this Agreement, whether disclosed orally, in writing, or in electronic form.`,
             `${cf.nondisclosure || "Each Party undertakes not to disclose the other Party's Confidential Information to any third party without prior written consent, except to the extent required by applicable law or a competent state authority."}`,
             `This confidentiality obligation shall remain in effect for ${cf.ndaDuration || "three (3) years"} following the termination or expiration of this Agreement.`,
-            `${cf.dataProtection ? cf.dataProtection : "Each Party shall process personal data disclosed under this Agreement in accordance with the Law of the Republic of Uzbekistan \"On Personal Data\" and shall implement reasonable technical and organizational measures to protect such data."}`,
-            "Where the Contractor processes personal data of citizens of the Republic of Uzbekistan in performing the Services, it shall collect, systematize, and store such data on technical means registered in the State Register of Personal Data Bases, and shall not transfer such data outside the Republic of Uzbekistan except in accordance with the localization and cross-border transfer rules established by the Law \"On Personal Data\" (as amended) and any list of countries recognized as providing an adequate level of protection.",
+            `${cf.dataProtection ? cf.dataProtection : "Each Party shall process personal data disclosed under this Agreement in accordance with the Law of the Republic of Uzbekistan \"On Personal Data\" (as amended), including its data-localization requirements under which biometric data, genetic data, and telecom-subscriber data of Uzbekistan citizens must be stored on servers located within the Republic of Uzbekistan, while other categories of personal data may be processed or stored abroad only where the conditions set out in that Law are met (e.g. an adequacy-recognized jurisdiction or approved standard contractual safeguards). Each Party shall implement reasonable technical and organizational measures to protect such data."}`,
           ]],
           ["Intellectual Property Rights", [
             `${ip.sourceCodeOwnership || "Upon full payment of the amounts due under this Agreement, all exclusive property rights to the source code developed specifically for the Project shall be transferred to the Client."}`,
@@ -133,6 +131,11 @@ const ContractITService = (() => {
             `In the event of delayed payment attributable to the Client, the Client shall pay a penalty of ${pay.penaltyPercent || "0.1"}% of the overdue amount per day of delay, up to a maximum of 10% of the overdue amount.`,
             `${pay.delayPenaltyNote || "The total aggregate liability of either Party under this Agreement shall not exceed the total price of the Agreement, except in cases of willful misconduct or gross negligence."}`,
           ]],
+          ["Indemnification", [
+            "The Contractor shall indemnify and hold the Client harmless from third-party claims to the extent such claims arise from the Contractor's willful misconduct, gross negligence, or knowing infringement of a third party's intellectual property rights in the Deliverables, provided the Client promptly notifies the Contractor of the claim and allows the Contractor to control its defense.",
+            "The Client shall indemnify and hold the Contractor harmless from third-party claims arising from content, data, materials, or instructions supplied by the Client, including any infringement of third-party rights embedded in materials the Client requires the Contractor to use.",
+            "Nothing in this Clause shall be construed to expand either Party's liability beyond the cap set out in Clause 20 (Liability and Penalties), except in cases of willful misconduct, gross negligence, or a Party's own fraud.",
+          ]],
           ["Dispute Resolution", [
             "The Parties shall use reasonable efforts to resolve any dispute arising out of or in connection with this Agreement through good-faith negotiation.",
             "Should the Parties fail to reach an amicable resolution within thirty (30) calendar days, the dispute shall be referred to the economic court of the Republic of Uzbekistan having jurisdiction over the Contractor's registered address, unless the Parties agree in writing to refer the matter to arbitration.",
@@ -140,12 +143,19 @@ const ContractITService = (() => {
           ["Notices", [
             "All notices under this Agreement shall be made in writing and delivered by hand, courier, registered mail, or email to the addresses specified in the signature block, and shall be deemed received on the date of confirmed delivery or, for email, on the next business day following transmission absent a bounce notification.",
           ]],
-          ["Electronic Document Circulation and Signatures", [
-            "This Agreement, its Annexes, and any acceptance acts, invoices, or change requests issued under it may be executed and exchanged in electronic form, including by way of a scanned handwritten signature or an electronic digital signature (EDS) issued in accordance with the Law of the Republic of Uzbekistan \"On Electronic Digital Signature,\" and shall have the same legal force as a document executed on paper, in accordance with the Law \"On Electronic Document Circulation.\"",
-            "Each Party shall bear sole responsibility for the confidentiality and proper use of its own electronic signature keys and email accounts used for the purposes of this Agreement.",
-          ]],
           ["Governing Law", [
             "This Agreement, including its formation, validity, and interpretation, shall be governed by the laws of the Republic of Uzbekistan.",
+          ]],
+          ["Assignment and Subcontracting", [
+            "Neither Party may assign this Agreement, in whole or in part, without the prior written consent of the other Party, except that the Client's consent shall not be unreasonably withheld where the assignment results from a merger, acquisition, or corporate reorganization of the Contractor.",
+            "The Contractor may engage subcontractors to perform part of the Services, provided that the Contractor remains fully responsible for the performance and quality of the Services and ensures that any subcontractor is bound by confidentiality obligations no less protective than those set out in this Agreement.",
+          ]],
+          ["Severability", [
+            "If any provision of this Agreement is held invalid or unenforceable under the laws of the Republic of Uzbekistan, that provision shall be deemed modified to the minimum extent necessary to make it enforceable, and the remaining provisions shall continue in full force and effect.",
+          ]],
+          ["Electronic Signatures and Documents", [
+            "This Agreement, its Annexes, and any amendment or notice under it may be executed and exchanged in electronic form, including via a qualified electronic digital signature within the meaning of the Law of the Republic of Uzbekistan \"On Electronic Digital Signature\" and the Law \"On Electronic Document Circulation,\" and such electronically signed documents shall have the same legal force as documents signed by hand.",
+            "The Parties acknowledge that correspondence exchanged via email or other agreed electronic channels, where it clearly reflects mutual agreement on a specific matter under this Agreement, may constitute a binding written agreement between the Parties on that matter.",
           ]],
           ["Final Provisions", [
             "This Agreement, together with its Annexes, constitutes the entire understanding between the Parties with respect to its subject matter and supersedes all prior negotiations, representations, or agreements, whether oral or written.",
@@ -213,7 +223,6 @@ const ContractITService = (() => {
             `Оставшаяся сумма в размере ${money(state, pay.remaining)} уплачивается в соответствии с графиком этапов, указанным в Приложении № 1, либо по факту окончательной приёмки Результатов работ.`,
             `Оплата производится посредством ${pay.method || "банковского перевода"} на расчётный счёт Исполнителя, указанный в реквизитах Сторон.`,
             "Все суммы указаны без учёта комиссий банковского перевода, которые несёт плательщик, если Сторонами не согласовано иное.",
-            "При осуществлении оплаты в иностранной валюте либо в трансграничном порядке Стороны обязуются соблюдать валютное и банковское законодательство Республики Узбекистан, действующее на момент платежа, включая требования об осуществлении расчётов через уполномоченные банки.",
           ]],
           ["Налоги", [
             "Каждая Сторона самостоятельно несёт ответственность по своим налоговым обязательствам, возникающим в связи с настоящим Договором, в соответствии с Налоговым кодексом Республики Узбекистан и иным применимым законодательством.",
@@ -228,8 +237,7 @@ const ContractITService = (() => {
             "«Конфиденциальная информация» означает любую непубличную техническую, коммерческую, финансовую или организационную информацию, раскрытую любой из Сторон в связи с настоящим Договором в устной, письменной или электронной форме.",
             `${cf.nondisclosure || "Каждая Сторона обязуется не раскрывать Конфиденциальную информацию другой Стороны третьим лицам без предварительного письменного согласия, за исключением случаев, предусмотренных применимым законодательством либо требованием компетентного государственного органа."}`,
             `Обязательство о конфиденциальности сохраняет силу в течение ${cf.ndaDuration || "трёх (3) лет"} после прекращения или истечения срока действия настоящего Договора.`,
-            `${cf.dataProtection ? cf.dataProtection : "Каждая Сторона обрабатывает персональные данные, раскрытые в рамках настоящего Договора, в соответствии с Законом Республики Узбекистан «О персональных данных» и принимает разумные технические и организационные меры для их защиты."}`,
-            "В случае обработки Исполнителем персональных данных граждан Республики Узбекистан при оказании Услуг, сбор, систематизация и хранение таких данных осуществляются на технических средствах, зарегистрированных в Государственном реестре баз персональных данных; передача таких данных за пределы Республики Узбекистан допускается только с соблюдением правил локализации и трансграничной передачи, установленных Законом «О персональных данных» (с изменениями), и перечня государств, обеспечивающих надлежащий уровень защиты.",
+            `${cf.dataProtection ? cf.dataProtection : "Каждая Сторона обрабатывает персональные данные, раскрытые в рамках настоящего Договора, в соответствии с Законом Республики Узбекистан «О персональных данных» (с изменениями), включая требования о локализации, согласно которым биометрические, генетические данные и данные абонентов телекоммуникационных операторов граждан Узбекистана подлежат хранению на серверах, физически расположенных на территории Республики Узбекистан, тогда как иные категории персональных данных могут обрабатываться или храниться за рубежом только при соблюдении условий, установленных указанным Законом. Каждая Сторона принимает разумные технические и организационные меры для защиты таких данных."}`,
           ]],
           ["Права интеллектуальной собственности", [
             `${ip.sourceCodeOwnership || "После полной оплаты сумм, причитающихся по настоящему Договору, все исключительные имущественные права на исходный код, разработанный специально для Проекта, переходят к Заказчику."}`,
@@ -271,6 +279,11 @@ const ContractITService = (() => {
             `В случае просрочки оплаты по вине Заказчика, Заказчик уплачивает неустойку в размере ${pay.penaltyPercent || "0.1"}% от просроченной суммы за каждый день просрочки, но не более 10% от указанной суммы.`,
             `${pay.delayPenaltyNote || "Совокупная ответственность каждой из Сторон по настоящему Договору не превышает общей стоимости Договора, за исключением случаев умысла или грубой неосторожности."}`,
           ]],
+          ["Возмещение убытков (индемнификация)", [
+            "Исполнитель обязуется возместить и оградить Заказчика от требований третьих лиц в той мере, в какой такие требования возникают вследствие умышленных недобросовестных действий, грубой неосторожности либо заведомого нарушения Исполнителем прав интеллектуальной собственности третьих лиц в Результатах работ, при условии незамедлительного уведомления Исполнителя о таком требовании и предоставления ему возможности вести защиту по своему усмотрению.",
+            "Заказчик обязуется возместить и оградить Исполнителя от требований третьих лиц, возникших из содержания, данных, материалов либо указаний, предоставленных Заказчиком, включая нарушение прав третьих лиц, содержащихся в материалах, использование которых Заказчик потребовал от Исполнителя.",
+            "Ничто в настоящем разделе не расширяет ответственность какой-либо Стороны сверх предела, установленного разделом 20 (Ответственность и неустойка), за исключением случаев умысла, грубой неосторожности либо мошенничества Стороны.",
+          ]],
           ["Разрешение споров", [
             "Стороны обязуются прилагать разумные усилия для урегулирования любого спора, возникающего из настоящего Договора или в связи с ним, путём переговоров в духе доброй воли.",
             "В случае недостижения согласия в течение тридцати (30) календарных дней спор передаётся на рассмотрение экономического суда Республики Узбекистан по месту регистрации Исполнителя, если Стороны письменно не договорились о передаче спора в арбитраж.",
@@ -278,12 +291,19 @@ const ContractITService = (() => {
           ["Уведомления", [
             "Все уведомления по настоящему Договору направляются в письменной форме нарочным, курьером, заказным письмом либо по электронной почте на адреса, указанные в реквизитах Сторон, и считаются полученными на дату подтверждённой доставки, а для электронной почты — на следующий рабочий день после отправки при отсутствии уведомления о недоставке.",
           ]],
-          ["Электронный документооборот и подписи", [
-            "Настоящий Договор, его Приложения, а также акты приёмки, счета и запросы на изменение, оформляемые в его рамках, могут исполняться и передаваться в электронной форме, в том числе посредством отсканированной собственноручной подписи либо электронной цифровой подписи (ЭЦП), выданной в соответствии с Законом Республики Узбекистан «Об электронной цифровой подписи», и имеют такую же юридическую силу, как и документ, составленный на бумажном носителе, в соответствии с Законом «Об электронном документообороте».",
-            "Каждая Сторона несёт самостоятельную ответственность за конфиденциальность и надлежащее использование собственных ключей электронной подписи и адресов электронной почты, используемых для целей настоящего Договора.",
-          ]],
           ["Применимое право", [
             "Настоящий Договор, включая вопросы его заключения, действительности и толкования, регулируется законодательством Республики Узбекистан.",
+          ]],
+          ["Уступка прав и субподряд", [
+            "Ни одна из Сторон не вправе уступать настоящий Договор, полностью или частично, без предварительного письменного согласия другой Стороны, за исключением случаев, когда согласие Заказчика не может быть необоснованно задержано, если уступка происходит в результате слияния, поглощения либо корпоративной реорганизации Исполнителя.",
+            "Исполнитель вправе привлекать субподрядчиков для выполнения части Услуг при условии, что Исполнитель сохраняет полную ответственность за исполнение и качество Услуг и обеспечивает соблюдение субподрядчиком обязательств о конфиденциальности не менее строгих, чем предусмотрено настоящим Договором.",
+          ]],
+          ["Делимость положений договора", [
+            "Если какое-либо положение настоящего Договора признаётся недействительным либо не подлежащим принудительному исполнению по законодательству Республики Узбекистан, такое положение считается изменённым в минимально необходимой степени для обеспечения его исполнимости, а остальные положения сохраняют полную силу.",
+          ]],
+          ["Электронные документы и подписи", [
+            "Настоящий Договор, его приложения, а также любые изменения либо уведомления по нему могут быть исполнены и переданы в электронной форме, в том числе посредством усиленной электронной цифровой подписи по смыслу Закона Республики Узбекистан «Об электронной цифровой подписи» и Закона «Об электронном документообороте», и такие электронно подписанные документы имеют такую же юридическую силу, как документы, подписанные собственноручно.",
+            "Стороны признают, что переписка, которой они обменялись по электронной почте либо через иной согласованный электронный канал связи, если она ясно отражает взаимное согласие по конкретному вопросу настоящего Договора, может представлять собой обязательное письменное соглашение Сторон по данному вопросу.",
           ]],
           ["Заключительные положения", [
             "Настоящий Договор вместе с Приложениями составляет полное соглашение Сторон по своему предмету и заменяет собой все предыдущие переговоры, заявления либо договорённости, устные или письменные.",
@@ -351,7 +371,6 @@ const ContractITService = (() => {
             `Qolgan ${money(state, pay.remaining)} summasi 1-ilovada ko'rsatilgan bosqichlar jadvaliga muvofiq yoki Natijalar yakuniy qabul qilingandan so'ng to'lanadi.`,
             `To'lov Ijrochining Taraflar rekvizitlarida ko'rsatilgan hisob raqamiga ${pay.method || "bank o'tkazmasi"} orqali amalga oshiriladi.`,
             "Barcha summalar bank o'tkazmasi komissiyalarisiz ko'rsatilgan bo'lib, Taraflar boshqacha kelishmagan bo'lsa, ularni to'lovchi Taraf o'z zimmasiga oladi.",
-            "To'lov chet el valyutasida yoki chegaralararo tartibda amalga oshirilganda, Taraflar to'lov amalga oshirilayotgan vaqtda amaldagi O'zbekiston Respublikasi valyuta va bank qonunchiligiga, jumladan hisob-kitoblarni vakolatli banklar orqali amalga oshirish talablariga rioya qiladilar.",
           ]],
           ["Soliqlar", [
             "Har bir Taraf ushbu Shartnoma bilan bog'liq holda yuzaga keladigan soliq majburiyatlari uchun O'zbekiston Respublikasi Soliq kodeksi va amaldagi boshqa qonunchilikka muvofiq mustaqil javobgar bo'ladi.",
@@ -366,8 +385,7 @@ const ContractITService = (() => {
             "«Maxfiy ma'lumot» — har qanday Taraf tomonidan ushbu Shartnoma bilan bog'liq holda og'zaki, yozma yoki elektron shaklda oshkor qilingan nooshkor texnik, tijorat, moliyaviy yoki tashkiliy ma'lumotni anglatadi.",
             `${cf.nondisclosure || "Har bir Taraf, amaldagi qonunchilik yoki vakolatli davlat organi talabi bilan bog'liq holatlar bundan mustasno, ikkinchi Tarafning Maxfiy ma'lumotini uchinchi shaxslarga oldindan yozma rozilikisiz oshkor etmaslikni o'z zimmasiga oladi."}`,
             `Ushbu maxfiylik majburiyati ushbu Shartnoma bekor qilingan yoki muddati tugagandan so'ng ${cf.ndaDuration || "uch (3) yil"} davomida saqlanadi.`,
-            `${cf.dataProtection ? cf.dataProtection : "Har bir Taraf ushbu Shartnoma doirasida oshkor qilingan shaxsga doir ma'lumotlarni «Shaxsga doir ma'lumotlar to'g'risida»gi Qonunga muvofiq qayta ishlaydi va ularni himoya qilish uchun oqilona texnik hamda tashkiliy choralarni ko'radi."}`,
-            "Agar Ijrochi Xizmatlarni ko'rsatish jarayonida O'zbekiston Respublikasi fuqarolarining shaxsga doir ma'lumotlarini qayta ishlasa, bunday ma'lumotlarni to'plash, tizimlashtirish va saqlash Shaxsga doir ma'lumotlar bazalarining davlat reyestrida ro'yxatdan o'tgan texnik vositalarda amalga oshiriladi; bunday ma'lumotlarni O'zbekiston Respublikasi hududidan tashqariga uzatish faqat «Shaxsga doir ma'lumotlar to'g'risida»gi Qonun (o'zgartirishlar bilan) va tegishli himoya darajasini ta'minlaydigan davlatlar ro'yxatida belgilangan lokalizatsiya va chegaralararo uzatish qoidalariga muvofiq amalga oshirilishi mumkin.",
+            `${cf.dataProtection ? cf.dataProtection : "Har bir Taraf ushbu Shartnoma doirasida oshkor qilingan shaxsga doir ma'lumotlarni «Shaxsga doir ma'lumotlar to'g'risida»gi Qonunga (o'zgartirishlar bilan) muvofiq qayta ishlaydi, jumladan ushbu Qonundagi lokalizatsiya talablariga ko'ra O'zbekiston fuqarolarining biometrik, genetik ma'lumotlari hamda telekommunikatsiya operatorlari abonentlarining ma'lumotlari O'zbekiston Respublikasi hududida joylashgan serverlarda saqlanishi shart, boshqa turdagi shaxsga doir ma'lumotlar esa faqat mazkur Qonunda belgilangan shartlar (masalan, yetarli himoya darajasiga ega deb tan olingan davlat yoki tasdiqlangan standart shartnoma kafolatlari) bajarilganda xorijda qayta ishlanishi yoki saqlanishi mumkin. Har bir Taraf bunday ma'lumotlarni himoya qilish uchun oqilona texnik va tashkiliy choralarni ko'radi."}`,
           ]],
           ["Intellektual mulk huquqlari", [
             `${ip.sourceCodeOwnership || "Ushbu Shartnoma bo'yicha to'lanishi lozim bo'lgan summalar to'liq to'langandan so'ng, Loyiha uchun maxsus ishlab chiqilgan manba kodiga oid barcha mutlaq mulkiy huquqlar Buyurtmachiga o'tadi."}`,
@@ -409,6 +427,11 @@ const ContractITService = (() => {
             `Buyurtmachining aybi bilan to'lov kechiktirilgan taqdirda, Buyurtmachi kechiktirilgan summaning ${pay.penaltyPercent || "0.1"}% miqdorida, har bir kechikkan kun uchun, ammo ushbu summaning 10%idan oshmagan holda jarima to'laydi.`,
             `${pay.delayPenaltyNote || "Har bir Tarafning ushbu Shartnoma bo'yicha umumiy javobgarligi qasddan qilingan harakat yoki qo'pol beparvolik holatlari bundan mustasno, Shartnomaning umumiy qiymatidan oshmaydi."}`,
           ]],
+          ["Zararni qoplash (indemnifikatsiya)", [
+            "Ijrochi, Natijalardagi uchinchi tomon intellektual mulk huquqlarini qasddan buzish, qo'pol beparvolik yoki bila turib huquqbuzarlik qilish natijasida yuzaga kelgan uchinchi tomon da'volari doirasida, Buyurtmachi Ijrochini bunday da'vo haqida zudlik bilan xabardor qilgan va himoyani mustaqil olib borish imkoniyatini bergan taqdirda, Buyurtmachini bunday da'volardan himoya qiladi va yuzaga kelgan zararni qoplaydi.",
+            "Buyurtmachi, o'zi taqdim etgan kontent, ma'lumotlar, materiallar yoki ko'rsatmalar natijasida yuzaga kelgan, jumladan Buyurtmachi Ijrochidan foydalanishni talab qilgan materiallardagi uchinchi tomon huquqlarining buzilishi bilan bog'liq uchinchi tomon da'volaridan Ijrochini himoya qiladi va zararni qoplaydi.",
+            "Ushbu band Taraflarning javobgarligini, qasddan qilingan harakat, qo'pol beparvolik yoki firibgarlik holatlari bundan mustasno, 20-bandda (Javobgarlik va jarimalar) belgilangan chegaradan oshirmaydi.",
+          ]],
           ["Nizolarni hal qilish", [
             "Taraflar ushbu Shartnomadan kelib chiqadigan yoki u bilan bog'liq har qanday nizoni yaxshi niyat asosida muzokaralar orqali hal qilish uchun oqilona harakatlar qiladilar.",
             "Agar o'ttiz (30) kalendar kuni ichida kelishuvga erishilmasa, Taraflar nizoni arbitrajga topshirish to'g'risida yozma kelishuvga erishmagan bo'lsa, nizo Ijrochi ro'yxatdan o'tgan manzil bo'yicha O'zbekiston Respublikasining iqtisodiy sudiga topshiriladi.",
@@ -416,12 +439,19 @@ const ContractITService = (() => {
           ["Bildirishnomalar", [
             "Ushbu Shartnoma bo'yicha barcha bildirishnomalar yozma shaklda, qo'lda topshirish, kuryer, buyurtma xat yoki Taraflar rekvizitlarida ko'rsatilgan elektron pochta orqali yuboriladi va tasdiqlangan yetkazib berish sanasida, elektron pochta uchun esa jo'natish sanasidan keyingi ish kunida (agar yetkazib berilmaganligi to'g'risida xabar bo'lmasa) qabul qilingan deb hisoblanadi.",
           ]],
-          ["Elektron hujjat aylanishi va imzolar", [
-            "Ushbu Shartnoma, uning ilovalari, shuningdek uning doirasida tuziladigan qabul qilish dalolatnomalari, hisob-fakturalar va o'zgartirish so'rovlari elektron shaklda, jumladan skanerlangan qo'lyozma imzo yoki O'zbekiston Respublikasining «Elektron raqamli imzo to'g'risida»gi Qonuniga muvofiq berilgan elektron raqamli imzo (ERI) orqali imzolanishi va almashinishi mumkin va «Elektron hujjat aylanishi to'g'risida»gi Qonunga muvofiq qog'ozda tuzilgan hujjat bilan bir xil yuridik kuchga ega bo'ladi.",
-            "Har bir Taraf ushbu Shartnoma maqsadlarida foydalanilayotgan o'z elektron imzo kalitlari va elektron pochta manzillarining maxfiyligi va tegishli tarzda foydalanilishi uchun mustaqil javobgar bo'ladi.",
-          ]],
           ["Amal qiluvchi qonunchilik", [
             "Ushbu Shartnoma, shu jumladan uning tuzilishi, haqiqiyligi va talqin etilishi masalalari O'zbekiston Respublikasi qonunchiligiga muvofiq tartibga solinadi.",
+          ]],
+          ["Huquqlarni topshirish va subpudrat", [
+            "Har qanday Taraf ikkinchi Tarafning oldindan yozma roziligisiz ushbu Shartnomani to'liq yoki qisman boshqa shaxsga topshira olmaydi; bundan Ijrochining birlashishi, qo'shib olinishi yoki korporativ qayta tashkil etilishi natijasida yuzaga keladigan topshirish mustasno bo'lib, bunday holda Buyurtmachi roziligi asossiz ravishda kechiktirilmasligi lozim.",
+            "Ijrochi Xizmatlarning bir qismini bajarish uchun subpudratchilarni jalb qilishi mumkin, bunda Ijrochi Xizmatlarning bajarilishi va sifati uchun to'liq javobgar bo'lib qoladi hamda har qanday subpudratchi ushbu Shartnomada belgilangandan kam bo'lmagan maxfiylik majburiyatlari bilan bog'langanligini ta'minlaydi.",
+          ]],
+          ["Shartnomaning bo'linuvchanligi", [
+            "Agar ushbu Shartnomaning biror qoidasi O'zbekiston Respublikasi qonunchiligiga muvofiq haqiqiy emas yoki bajarilishi mumkin bo'lmagan deb topilsa, bunday qoida uni bajarilishi mumkin qilish uchun zarur bo'lgan eng kam darajada o'zgartirilgan deb hisoblanadi, qolgan qoidalar esa to'liq kuchda qoladi.",
+          ]],
+          ["Elektron hujjatlar va imzolar", [
+            "Ushbu Shartnoma, uning ilovalari, shuningdek unga oid har qanday o'zgartirish yoki bildirishnoma, O'zbekiston Respublikasining «Elektron raqamli imzo to'g'risida»gi Qonuni va «Elektron hujjat aylanishi to'g'risida»gi Qonuni ma'nosidagi malakali elektron raqamli imzo orqali ham bo'lgan holda, elektron shaklda tuzilishi va almashinishi mumkin, va bunday elektron imzolangan hujjatlar qo'lda imzolangan hujjatlar bilan bir xil yuridik kuchga ega bo'ladi.",
+            "Taraflar, elektron pochta yoki boshqa kelishilgan elektron kanal orqali almashilgan yozishmalar, agar ular ushbu Shartnomaning muayyan masalasi bo'yicha o'zaro kelishuvni aniq aks ettirsa, ushbu masala bo'yicha Taraflar o'rtasidagi majburiy yozma kelishuv hisoblanishi mumkinligini tan oladilar.",
           ]],
           ["Yakuniy qoidalar", [
             "Ushbu Shartnoma o'z ilovalari bilan birgalikda Taraflar o'rtasidagi predmet bo'yicha to'liq kelishuvni tashkil etadi va oldingi barcha og'zaki yoki yozma muzokaralar, bayonotlar yoki kelishuvlarni bekor qiladi.",
@@ -438,9 +468,9 @@ const ContractITService = (() => {
     return T[lang] || T.en;
   }
 
-  function annexTable(state, lang, t) {
+  function buildAnnexRows(state, lang, t) {
     const pr = state.project, pay = state.payment;
-    const rows = [
+    return [
       [t("field.projectName"), pr.name || "—"],
       [t("field.projectType"), pr.type || "—"],
       [t("field.technologies"), pr.technologies || "—"],
@@ -453,7 +483,10 @@ const ContractITService = (() => {
       [t("field.advance"), money(state, pay.advance)],
       [t("field.remaining"), money(state, pay.remaining)],
     ];
-    return W.infoTable(rows);
+  }
+
+  function annexTable(state, lang, t) {
+    return W.infoTable(buildAnnexRows(state, lang, t));
   }
 
   function generate(state, lang, t) {
@@ -493,8 +526,9 @@ const ContractITService = (() => {
       bodyChildren: body,
       includeTOC: true,
       tocTitle: c.toc,
+      docSlug: "it-service",
     });
   }
 
-  return { generate };
+  return { generate, content, annexRows: buildAnnexRows };
 })();
