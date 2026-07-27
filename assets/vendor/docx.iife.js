@@ -11119,7 +11119,8 @@ var __async = (__this, __arguments, generator) => {
   class ImageRun extends Run {
     constructor(options2) {
       super({});
-      __publicField(this, "key", `${uniqueId()}.png`);
+      const __imgExt = (options2 && options2.type ? String(options2.type) : "png").toLowerCase().replace(/^jpeg$/, "jpg");
+      __publicField(this, "key", `${uniqueId()}.${__imgExt}`);
       __publicField(this, "imageData");
       const newData = typeof options2.data === "string" ? this.convertDataURIToBinary(options2.data) : options2.data;
       this.imageData = {
