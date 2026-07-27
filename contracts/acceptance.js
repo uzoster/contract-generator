@@ -92,8 +92,8 @@ const ContractAcceptance = (() => {
       passportLabel: t("field.passportPinfl"),
       phoneLabel: t("field.phone"),
     }));
-    return W.buildDocument({ state, lang, t, docTitle: c.title, docSubtitle: c.subtitle, bodyChildren: body, includeTOC: false });
+    return W.buildDocument({ state, lang, t, docTitle: c.title, docSubtitle: c.subtitle, bodyChildren: body, includeTOC: false, docSlug: "acceptance" });
   }
 
-  return { generate };
+  return { generate, content };
 })();

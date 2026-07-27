@@ -24,7 +24,7 @@ const ContractNDA = (() => {
             "The Receiving Party shall apply at least the same degree of care to protect the Confidential Information as it applies to protect its own confidential information of similar nature, and in any event no less than a reasonable degree of care.",
           ]],
           ["Data Protection", [
-            `${cf.dataProtection || "Where Confidential Information includes personal data, each Party shall process such data in accordance with the Law of the Republic of Uzbekistan \"On Personal Data\" and shall implement reasonable technical and organizational safeguards against unauthorized access, loss, or disclosure."}`,
+            `${cf.dataProtection || "Where Confidential Information includes personal data, each Party shall process such data in accordance with the Law of the Republic of Uzbekistan \"On Personal Data\" (as amended), including its data-localization requirements for biometric, genetic, and telecom-subscriber data of Uzbekistan citizens, and shall implement reasonable technical and organizational safeguards against unauthorized access, loss, or disclosure."}`,
           ]],
           ["Required Disclosure", ["Where the Receiving Party is required by law, regulation, or a competent state authority to disclose Confidential Information, it shall, to the extent legally permitted, notify the Disclosing Party promptly and cooperate in seeking a protective measure prior to disclosure."]],
           ["Term", [
@@ -57,7 +57,7 @@ const ContractNDA = (() => {
             "Получающая сторона обязуется применять как минимум ту же степень заботливости при защите Конфиденциальной информации, что и в отношении собственной конфиденциальной информации аналогичного характера, но в любом случае не ниже разумной степени.",
           ]],
           ["Защита персональных данных", [
-            `${cf.dataProtection || "В случае, если Конфиденциальная информация включает персональные данные, каждая Сторона обрабатывает такие данные в соответствии с Законом Республики Узбекистан «О персональных данных» и принимает разумные технические и организационные меры по защите от несанкционированного доступа, утраты или раскрытия."}`,
+            `${cf.dataProtection || "В случае, если Конфиденциальная информация включает персональные данные, каждая Сторона обрабатывает такие данные в соответствии с Законом Республики Узбекистан «О персональных данных» (с изменениями), включая требования о локализации биометрических, генетических данных и данных абонентов телекоммуникационных операторов граждан Узбекистана, и принимает разумные технические и организационные меры по защите от несанкционированного доступа, утраты или раскрытия."}`,
           ]],
           ["Обязательное раскрытие", ["В случае если Получающая сторона обязана раскрыть Конфиденциальную информацию в силу закона, нормативного акта либо требования компетентного государственного органа, она обязана, в допустимых законом пределах, незамедлительно уведомить Раскрывающую сторону и содействовать в принятии защитных мер до раскрытия."]],
           ["Срок действия", [
@@ -90,7 +90,7 @@ const ContractNDA = (() => {
             "Qabul qiluvchi tomon Maxfiy ma'lumotni himoya qilishda kamida o'zining shunga o'xshash maxfiy ma'lumotini himoya qilishda qo'llagan darajadagi, har holda oqilona darajadan kam bo'lmagan ehtiyotkorlikni qo'llaydi.",
           ]],
           ["Ma'lumotlarni himoya qilish", [
-            `${cf.dataProtection || "Agar Maxfiy ma'lumot shaxsga doir ma'lumotlarni o'z ichiga olsa, har bir Taraf bunday ma'lumotlarni «Shaxsga doir ma'lumotlar to'g'risida»gi Qonunga muvofiq qayta ishlaydi va ruxsatsiz kirish, yo'qotish yoki oshkor etilishidan himoya qilish uchun oqilona texnik va tashkiliy choralarni ko'radi."}`,
+            `${cf.dataProtection || "Agar Maxfiy ma'lumot shaxsga doir ma'lumotlarni o'z ichiga olsa, har bir Taraf bunday ma'lumotlarni «Shaxsga doir ma'lumotlar to'g'risida»gi Qonunga (o'zgartirishlar bilan) muvofiq, jumladan O'zbekiston fuqarolarining biometrik, genetik va telekommunikatsiya abonentlik ma'lumotlariga nisbatan lokalizatsiya talablarini hisobga olgan holda qayta ishlaydi va ruxsatsiz kirish, yo'qotish yoki oshkor etilishidan himoya qilish uchun oqilona texnik va tashkiliy choralarni ko'radi."}`,
           ]],
           ["Majburiy oshkor qilish", ["Qabul qiluvchi tomon qonun, me'yoriy hujjat yoki vakolatli davlat organi talabi bilan Maxfiy ma'lumotni oshkor qilishga majbur bo'lgan taqdirda, qonun yo'l qo'ygan darajada, Oshkor qiluvchi tomonni zudlik bilan xabardor qilishi va oshkor etishdan oldin himoya choralarini ko'rishda hamkorlik qilishi lozim."]],
           ["Amal qilish muddati", [
@@ -131,8 +131,8 @@ const ContractNDA = (() => {
       passportLabel: t("field.passportPinfl"),
       phoneLabel: t("field.phone"),
     }));
-    return W.buildDocument({ state, lang, t, docTitle: c.title, docSubtitle: c.subtitle, bodyChildren: body, includeTOC: false, tocTitle: c.toc });
+    return W.buildDocument({ state, lang, t, docTitle: c.title, docSubtitle: c.subtitle, bodyChildren: body, includeTOC: false, tocTitle: c.toc, docSlug: "nda" });
   }
 
-  return { generate };
+  return { generate, content };
 })();
