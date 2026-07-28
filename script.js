@@ -157,6 +157,7 @@
         setPath(state, path, el.value);
         syncOtherInputs(path, el.value, el);
         autosave();
+        el.classList.remove("is-invalid");
         if (path === "company.name" || path === "client.name") updateDashboardStats();
       });
       el.addEventListener("change", () => {
@@ -420,9 +421,84 @@
     });
   }
 
+  function isValidTin(v) { return /^\d{9}$/.test(String(v || "").trim()); }
+  function isValidPinfl(v) { return /^\d{14}$/.test(String(v || "").trim()); }
+  function isValidPhone(v) { return /^\+?\d{9,15}$/.test(String(v || "").replace(/[\s\-()]/g, "")); }
+  function isValidMfo(v) { return /^\d{5}$/.test(String(v || "").trim()); }
+  function isValidAccount(v) { return /^\d{20}$/.test(String(v || "").trim()); }
+
+  function markInvalid(path, firstEl) {
+    document.querySelectorAll(`[data-field="${path}"]`).forEach(el => {
+      el.classList.add("is-invalid");
+      if (!firstEl.value) firstEl.value = el;
+    });
+  }
+
   function validate(docType) {
-    if (!state.company.name || !state.client.name) {
-      toast(t("toast.formIncomplete"), "error");
+    const errors = [];
+    const firstInvalid = { value: null };
+    document.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
+
+    const need = (path, val, msgKey) => {
+      if (!String(val || "").trim()) { errors.push(t(msgKey)); markInvalid(path, firstInvalid); }
+    };
+
+    // Core required fields (any document needs valid, identifiable parties)
+    need("company.name", state.company.name, "valid.companyName");
+    need("company.director", state.company.director, "valid.companyDirector");
+    need("company.address", state.company.address, "valid.companyAddress");
+    need("client.name", state.client.name, "valid.clientName");
+
+    if (docType !== "nda") {
+      need("project.name", state.project.name, "valid.projectName");
+    }
+
+    // Format checks — only enforced when a value is actually present, so
+    // partially-filled drafts aren't blocked, but obvious typos are caught.
+    if (state.company.tin && !isValidTin(state.company.tin)) {
+      errors.push(t("valid.companyTinFormat")); markInvalid("company.tin", firstInvalid);
+    }
+    if (state.client.type !== "individual" && state.client.tin && !isValidTin(state.client.tin)) {
+      errors.push(t("valid.clientTinFormat")); markInvalid("client.tin", firstInvalid);
+    }
+    if (state.client.type === "individual" && state.client.passport && !isValidPinfl(state.client.passport) &&
+        !/^[A-Z]{2}\d{7}$/i.test(String(state.client.passport).trim())) {
+      errors.push(t("valid.clientPassportFormat")); markInvalid("client.passport", firstInvalid);
+    }
+    if (state.company.phone && !isValidPhone(state.company.phone)) {
+      errors.push(t("valid.companyPhoneFormat")); markInvalid("company.phone", firstInvalid);
+    }
+    if (state.client.phone && !isValidPhone(state.client.phone)) {
+      errors.push(t("valid.clientPhoneFormat")); markInvalid("client.phone", firstInvalid);
+    }
+    if (state.company.mfo && !isValidMfo(state.company.mfo)) {
+      errors.push(t("valid.mfoFormat")); markInvalid("company.mfo", firstInvalid);
+    }
+    if (state.company.account && !isValidAccount(state.company.account)) {
+      errors.push(t("valid.accountFormat")); markInvalid("company.account", firstInvalid);
+    }
+
+    // Payment logic — a "real" contract cannot have negative or contradictory sums.
+    const price = Number(state.payment.price);
+    const advance = Number(state.payment.advance);
+    if (state.payment.price !== "" && state.payment.price != null) {
+      if (!(price > 0)) { errors.push(t("valid.pricePositive")); markInvalid("payment.price", firstInvalid); }
+      if (state.payment.advance && advance > price) {
+        errors.push(t("valid.advanceExceedsPrice")); markInvalid("payment.advance", firstInvalid);
+      }
+    }
+
+    // Date logic
+    if (state.project.startDate && state.project.endDate && state.project.startDate > state.project.endDate) {
+      errors.push(t("valid.endBeforeStart"));
+      markInvalid("project.startDate", firstInvalid); markInvalid("project.endDate", firstInvalid);
+    }
+
+    if (errors.length) {
+      const summary = errors.length === 1 ? errors[0] : `${errors[0]} (+${errors.length - 1} ${t("valid.moreIssues")})`;
+      toast(summary, "error");
+      if (firstInvalid.value) firstInvalid.value.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (firstInvalid.value) firstInvalid.value.focus();
       return false;
     }
     return true;
